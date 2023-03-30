@@ -1,0 +1,21 @@
+import jenkins.model.*
+import com.cloudbees.plugins.credentials.*
+import com.cloudbees.plugins.credentials.common.*
+import com.cloudbees.plugins.credentials.domains.*
+import com.cloudbees.plugins.credentials.impl.*
+
+// Get the instance of the CredentialsStore
+def credsStore = Jenkins.instance.getExtensionList('com.cloudbees.plugins.credentials.SystemCredentialsProvider')[0].getStore()
+
+// Get all global credentials
+def globalCreds = credsStore.getCredentials(Domain.global())
+
+// Print the credentials
+globalCreds.each { cred ->
+    println("Credential ID: ${cred.id}")
+    println("Credential Type: ${cred.getClass().getName()}")
+    println("Credential Description: ${cred.description}")
+    println("Credential Username: ${cred.username}")
+    println("Credential Secret: ${cred.secret}")
+    println("------------------------------------")
+}
